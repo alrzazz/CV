@@ -1,0 +1,219 @@
+\documentclass[10pt,A4]{article}	
+\usepackage[utf8]{inputenc}		
+\usepackage{xstring, xifthen}
+\usepackage[default]{raleway}
+\renewcommand*\familydefault{\sfdefault} 	
+\usepackage[T1]{fontenc}
+\usepackage{moresize}
+\usepackage{fontawesome}
+\usepackage{paracol}
+\usepackage[a4paper]{geometry}
+\geometry{top=1cm, bottom=1cm, left=1cm, right=1cm}
+\usepackage{fancyhdr}
+\pagestyle{empty}
+\setlength{\parindent}{0mm}
+\usepackage{array}
+\newcolumntype{x}[1]{%
+>{\raggedleft\hspace{0pt}}p{#1}}%
+\usepackage{graphicx}
+\usepackage{tikz}				
+\usetikzlibrary{shapes, backgrounds,mindmap, trees}
+\usepackage{transparent}
+\usepackage{color}
+\usepackage[hidelinks]{hyperref}
+
+
+
+% primary color
+\definecolor{primaryColor}{RGB}{105, 250, 209}
+% secondary color
+\definecolor{secondaryColor}{RGB}{ 29, 20, 195 }
+% dark color
+\definecolor{darkColor}{RGB}{ 40, 40, 70 }
+% light color
+\definecolor{lightColor}{RGB}{220,220,220}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!red,
+  urlcolor=primaryColor
+}
+
+\newcommand{\mpwidth}{\linewidth-\fboxsep-\fboxsep}
+\newcommand{\vcenteredinclude}[1]{\begingroup
+\setbox0=\hbox{\includegraphics{#1}}%
+\parbox{\wd0}{\box0}\endgroup}
+\newcommand*{\vcenteredhbox}[1]{\begingroup
+\setbox0=\hbox{#1}\parbox{\wd0}{\box0}\endgroup}
+\newcommand{\icon}[3] { 							
+	\makebox(#2, #2){\textcolor{darkColor}{\csname fa#1\endcsname}}
+}	
+\newcommand{\icontext}[4]{ 						
+	\vcenteredhbox{\icon{#1}{#2}{#3}}  \hspace{2pt}  \parbox{0.9\mpwidth}{\textcolor{#4}{#3}}
+}
+\newcommand{\iconhref}[5]{ 						
+    \vcenteredhbox{\icon{#1}{#2}{#5}}  \hspace{2pt} \href{#4}{\textcolor{#5}{#3}}
+}
+\newcommand{\iconemail}[5]{ 						
+    \vcenteredhbox{\icon{#1}{#2}{#5}}  \hspace{2pt} \href{mailto:#4}{\textcolor{#5}{#3}}
+}
+
+%----------------------------------------------------------------------------------------
+%	 CV TEXT
+%----------------------------------------------------------------------------------------
+
+% base class to wrap any text based stuff here. Renders like a paragraph.
+% Allows complex commands to be passed, too.
+% param 1: *any
+\newcommand{\cvtext}[1] {
+	\begin{tabular*}{1\mpwidth}{p{0.98\mpwidth}}
+		\parbox{1\mpwidth}{#1}
+	\end{tabular*}
+}
+
+%----------------------------------------------------------------------------------------
+%	CV SECTION
+%----------------------------------------------------------------------------------------
+
+% Renders a a CV section headline with a nice underline in main color.
+% param 1: section title
+\newcommand{\cvsection}[1] {
+	\vspace{14pt}
+	\cvtext{
+		\textbf{\LARGE{\textcolor{darkColor}{#1}}}\\[-4pt]
+		\textcolor{primaryColor}{ \rule{0.1\textwidth}{2pt} } \\
+	}
+}
+
+%----------------------------------------------------------------------------------------
+%	META SKILL
+%----------------------------------------------------------------------------------------
+
+% Renders a progress-bar to indicate a certain skill in percent.
+% param 1: name of the skill / tech / etc.
+% param 2: level (for example in years)
+% param 3: percent, values range from 0 to 1
+\newcommand{\cvskill}[3] {
+	\begin{tabular*}{1\mpwidth}{p{0.72\mpwidth}  r}
+ 		\textcolor{black}{\textbf{#1}} & \textcolor{black}{#2}\\
+	\end{tabular*}
+	
+	\hspace{4pt}
+	\begin{tikzpicture}[scale=1,rounded corners=2pt, thin]
+		\fill [lightColor] (0,0) rectangle (1\mpwidth, 0.3);
+		\fill [secondaryColor] (0,0) rectangle (#3\mpwidth, 0.3);
+  	\end{tikzpicture}
+	  \newline
+	  
+}
+
+
+\begin{document}
+\columnratio{0.32}
+\setlength{\columnsep}{3em}
+\setlength{\columnseprule}{2pt}
+\colseprulecolor{darkColor}
+\begin{paracol}{2}
+\begin{leftcolumn}
+%---------------------------------------------------------------------------------------
+%	META IMAGE
+%----------------------------------------------------------------------------------------
+\includegraphics[width=\linewidth]{images/pic.jpg}	%trimming relative to image size
+
+%---------------------------------------------------------------------------------------
+%	META SKILLS
+%----------------------------------------------------------------------------------------
+\cvsection{Skills}
+
+\cvskill{Python} {4+ yrs} {0.8} 
+
+\cvskill{Django} {3+ yrs} {0.9} 
+
+\cvskill{Flask} {3+ yrs} {0.8} 
+
+\cvskill{Keras} {3+ yrs} {0.7} 
+
+\cvskill{React} {3+ yrs} {0.8} 
+
+\cvskill{Golang} {2+ yrs} {0.5} 
+
+\cvskill{PostgreSQL} {2+ yrs} {0.4} 
+
+\cvskill{Docker} {2+ yrs} {0.5} 
+
+\cvskill{Git} {4+ yrs} {0.9} 
+
+\cvsection{Other}
+
+Linux,
+RabbitMQ,
+Redis,
+Celery,\\
+React Native,
+MongoDB,
+Bash Script,
+Deep Learning,
+RL,
+CI/CD
+
+\cvsection{Contact}
+	
+% \icontext{MapMarker}{12}{Example St. 1\\12345 Somewhere}{black}\\[6pt]
+\icontext{MobilePhone}{12}{+98-936-044-8611}{black}
+\iconhref{Globe}{12}{alrzazz.github.io}{https://alrzazz.github.io}{black}\\
+\iconemail{Envelope}{12}{alrzazz@yahoo.com}{alrzazz@yahoo.com}{black}\\
+\iconemail{Envelope}{12}{alirezaazizi1396622@gmail.com}{alirezaazizi1396622@gmail.com}{black}
+
+\end{leftcolumn}
+\begin{rightcolumn}
+
+%---------------------------------------------------------------------------------------
+%	INTRO
+%----------------------------------------------------------------------------------------
+\fcolorbox{white}{darkColor}{\begin{minipage}[c][3.5cm][c]{1\mpwidth}
+	\begin {center}
+		\HUGE{ \textbf{ \textcolor{white}{Alireza Azizi} } } \\[-24pt]
+		\textcolor{white}{ \rule{0.1\textwidth}{1.25pt} } \\[4pt]
+		\large{ \textcolor{white} {Mid Level Backend Developer} }
+	\end {center}
+\end{minipage}} \\[14pt]
+\vspace{-12pt}
+
+
+%---------------------------------------------------------------------------------------
+%	CONTENT
+%----------------------------------------------------------------------------------------
+\cvsection{Education}
+\begin{itemize}
+	\item Mathematics and Physics in Shahid Beheshti High School, Shahrood, Iran (2012-2016)
+	\item Computer Engineering in Iran University of Science and Technology, Tehran, Iran (2017-Present)
+\end{itemize}
+
+\cvsection{Teahcing Experience}
+
+\begin{itemize}
+	\item Teacher's Assistant for Fundamental of Programing (Dr. Zeinab Movahedi)
+	\item Teacher's Assistant for Fundamental of Programing of C\# (Dr. Sauleh Etemadi)
+	\item Teacher's Assistant for Advanced Programming of C\# (Dr. Sauleh Etemadi)
+\end{itemize}
+
+\cvsection{Self Study}
+
+\begin{itemize}
+	\item Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization \href{https://www.coursera.org/account/accomplishments/certificate/2GCY2E86E45S}{[certificate]}
+	\item Using Python to Interact with the Operating System \href{https://www.coursera.org/account/accomplishments/certificate/GT85JCDVR6H4}{[certificate]}
+	\item Design Patterns \href{https://www.coursera.org/account/accomplishments/certificate/H3VA5RWWRT42}{[certificate]}
+	\item Neural Networks and Deep Learning \href{https://www.coursera.org/account/accomplishments/certificate/PCA3ZEPX4KA6}{[certificate]}
+\end{itemize}
+
+\cvsection{Projects}
+\begin{itemize}
+	\item Health-Record-Backend : System for save all healthy information of a patient using Django REST API, PostgreSQL, Nginx, github CI, and Docker Compose \href{https://github.com/alrzazz/Health-Record-Backend}{[link]}
+	\item Data-Structure-Course : Some Data Structure and Algorithem impelemation for Dr. Eetemadi Course \href{https://github.com/alrzazz/Data-Structure-Course}{[link]}
+	\item yes-or-no-recognition : An application for sound recognition with Keras \href{https://github.com/alrzazz/yes-or-no-recognition}{[link]}
+\end{itemize}
+
+\end{rightcolumn}
+\end{paracol}
+\end{document}
+
